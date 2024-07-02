@@ -50,7 +50,6 @@ const handleDeleteData = (req, res) => {
     const task = tasks.find((task) => task.id == id);
     if (task) {
         const task = tasks.filter((task) => task.id !== id);
-        console.log(task);
         res.status(200).json({message : "Task deleted"})
     }
     else {
@@ -58,9 +57,20 @@ const handleDeleteData = (req, res) => {
     }
 }
 
+const handleGetDataById = (req,res) => {
+    const id = req.params.id;
+    const task = tasks.find((task) => task.id == id);
+    if (task) {
+        res.status(200).json({message:`Task with ${id} Found`,task})
+    }
+    else{
+        res.status(400).json({message : `Task with ${id} not found`})
+    }
+}
 module.exports = {
     handleCreateData,
     handleDisplayData,
     handleUpdateData,
-    handleDeleteData
+    handleDeleteData,
+    handleGetDataById
 }
